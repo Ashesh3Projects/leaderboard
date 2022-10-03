@@ -176,5 +176,6 @@ export async function getStaticProps() {
       contributors: contributors,
       lastUpdated: lastUpdated,
     },
+    revalidate: 10
   };
 }
