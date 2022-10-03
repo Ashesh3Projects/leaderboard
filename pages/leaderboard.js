@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import LeaderboardCard from "../components/contributors/LeaderboardCard";
 import TopContributor from "../components/contributors/TopContributor";
 import Filters from "../components/filters/Filters";
-import { getContributors } from "../lib/api";
+import { getContributors, getLastUpdated } from "../lib/api";
 import { TbZoomQuestion } from "react-icons/tb";
 
 // Calculate week number
@@ -30,8 +30,11 @@ export default function Home(props) {
   const [sortDescending, setSortDescending] = useState(true);
   const [showCoreMembers, setShowCoreMembers] = useState(false);
   const [categoryLeaderboard, setCategoryLeaderboard] = useState([]);
+  const [lastUpdated, setlastUpdated] = useState(0);
 
   useEffect(() => {
+    console.log(props.lastUpdated)
+    setlastUpdated(props.lastUpdated);
     let filteredContributors = props.contributors;
 
     if (!showCoreMembers) {
@@ -96,7 +99,8 @@ export default function Home(props) {
                   <div className="flex space-x-2 px-6 py-3 border-b border-primary-500 ">
                     <span>
                       Live Leaderboard of last 7 days | Week{" "}
-                      {getWeekNumber(new Date())} of {new Date().getFullYear()}
+                      {getWeekNumber(new Date())} | Last Updated:{" "}
+                      {new Date(parseInt(lastUpdated)).toLocaleString()}
                     </span>
                   </div>
                   {contributors.length ? (
@@ -164,11 +168,13 @@ export default function Home(props) {
 
 export async function getStaticProps() {
   const contributors = getContributors();
+  const lastUpdated = getLastUpdated();
 
   return {
     props: {
       title: "Leaderboard",
       contributors: contributors,
+      lastUpdated: lastUpdated,
     },
   };
 }
