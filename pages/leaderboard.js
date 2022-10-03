@@ -99,8 +99,7 @@ export default function Home(props) {
                   <div className="flex space-x-2 px-6 py-3 border-b border-primary-500 ">
                     <span>
                       Live Leaderboard of last 7 days | Week{" "}
-                      {getWeekNumber(new Date())} | Last Updated:{" "}
-                      {new Date(parseInt(lastUpdated)).toLocaleString()}
+                      {getWeekNumber(new Date())} 
                     </span>
                   </div>
                   {contributors.length ? (
