@@ -9,6 +9,7 @@ from os import getenv
 from pathlib import Path
 from urllib.parse import parse_qsl, urlparse
 from zoneinfo import ZoneInfo
+import time
 
 import requests
 
@@ -394,3 +395,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    with open('data/last_updated','w') as f:
+        f.write(str(round(time.time() * 1000)))

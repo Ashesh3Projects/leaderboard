@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 
 import requests
 from requests.exceptions import RequestException
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--lookback_days", type=int, help="Fetch the Last X days Data", default=0)
@@ -102,3 +103,5 @@ def dump_file(filename: str, data: dict):
 
 
 generate_cache(args.lookback_days)
+with open('data/last_updated','w') as f:
+    f.write(str(round(time.time() * 1000)))
